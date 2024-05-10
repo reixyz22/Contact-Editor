@@ -6,7 +6,7 @@ This Contact Management System allows users to store, edit, and manage contact i
 ## Technologies Used
 - Web Framework: [Remix](https://remix.run) or [Next.js](https://nextjs.org)
 - UI Components: [DaisyUI](https://daisyui.com)
-- Database: TBD (PostgreSQL, MongoDB, etc.)
+- Database: TBD
 
 ## Features
 - Create new contact entries
