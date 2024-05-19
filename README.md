@@ -1,43 +1,3 @@
-<<<<<<< HEAD
-# Welcome to Remix!
-
-- [Remix Docs](https://remix.run/docs)
-
-## Development
-
-From your terminal:
-
-```sh
-npm run dev
-```
-
-This starts your app in development mode, rebuilding assets on file changes.
-
-## Deployment
-
-First, build your app for production:
-
-```sh
-npm run build
-```
-
-Then run the app in production mode:
-
-```sh
-npm start
-```
-
-Now you'll need to pick a host to deploy it to.
-
-### DIY
-
-If you're familiar with deploying node applications, the built-in Remix app server is production-ready.
-
-Make sure to deploy the output of `remix build`
-
-- `build/server`
-- `build/client`
-=======
 # Contact Management System
 
 ## Project Overview
@@ -67,4 +27,3 @@ Clone the repository and install dependencies:
 git clone https://github.com/yourusername/contact-management-system.git
 cd contact-management-system
 npm install
->>>>>>> db57420dd49bedeaa19b1967dda5e034b87a53e6
