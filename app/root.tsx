@@ -16,7 +16,10 @@ import {
   useLoaderData,
   NavLink,
   useNavigation,
+  useSubmit,
+
 } from "@remix-run/react";
+import { useEffect } from "react";
 
 import appStylesHref from "./app.css?url";
 import { createEmptyContact, getContacts } from "./data";
@@ -43,6 +46,19 @@ export const links: LinksFunction = () => [
 export default function App() {
   const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
+  const submit = useSubmit();
+  const searching =
+    navigation.location &&
+    new URLSearchParams(navigation.location.search).has(
+      "q"
+    );
+
+   useEffect(() => {
+    const searchField = document.getElementById("q");
+    if (searchField instanceof HTMLInputElement) {
+      searchField.value = q || "";
+    }
+  }, [q]);
 
 
   return (
@@ -57,16 +73,30 @@ export default function App() {
         <div id="sidebar">
           <h1>Remix Contacts</h1>
           <div>
-            <Form id="search-form" role="search">
+            <Form
+              id="search-form"
+              onChange={(event) => {
+                const isFirstSearch = q === null;
+                submit(event.currentTarget, {
+                  replace: !isFirstSearch,
+                });
+              }}
+              role="search"
+            >
               <input
-                id="q"
-                aria-label="Search contacts"
-                defaultValue={q || ""}
-                placeholder="Search"
-                type="search"
-                name="q"
+                  id="q"
+                  aria-label="Search contacts"
+                  className={searching ? "loading" : ""}
+                  defaultValue={q || ""}
+                  placeholder="Search"
+                  type="search"
+                  name="q"
               />
-              <div id="search-spinner" aria-hidden hidden={true} />
+              <div
+                  aria-hidden
+                  hidden={!searching}
+                  id="search-spinner"
+              />
             </Form>
             <Form method="post">
               <button type="submit">New</button>
@@ -108,12 +138,19 @@ export default function App() {
             )}
           </nav>
         </div>
-        <div className={navigation.state === "loading" ? "loading" : ""} id="detail">
-          <Outlet />
+        <div
+            className={
+              navigation.state === "loading" && !searching
+                  ? "loading"
+                  : ""
+            }
+            id="detail"
+        >
+          <Outlet/>
         </div>
-        <ScrollRestoration />
-        <Scripts />
+        <ScrollRestoration/>
+        <Scripts/>
       </body>
-    </html>
+      </html>
   );
 }
